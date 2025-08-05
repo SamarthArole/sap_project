@@ -1,5 +1,4 @@
-// service.js
-const { handleGeminiExtraction } = require('./GeminiParser');
+const { handleAIExtraction } = require('./AICore'); // renamed for clarity
 const { assignGroupsToUser, revokeGroupsFromUser } = require('./BulkAssignment');
 
 module.exports = cds.service.impl(function () {
@@ -8,10 +7,15 @@ module.exports = cds.service.impl(function () {
 
     console.log(`[Chatbot] 🟢 Received input: ${inputText}`);
 
-    // Step 1: Extract intent and info
-    const { intent, email, groups } = await handleGeminiExtraction(inputText);
-    if (!intent || !email || !groups.length) {
-      return { status: 'error', message: 'Could not extract enough info from input.' };
+    // Step 1: Extract intent and info from AI Core (llmproxy)
+    const { intent, email, groups, error } = await handleAIExtraction(inputText);
+
+    if (error || !intent || !email || !groups?.length) {
+      return {
+        status: 'error',
+        message: '❌ Could not extract enough info from input.',
+        debug: error
+      };
     }
 
     console.log(`[Chatbot] 🔍 Parsed intent: ${intent}, email: ${email}, groups: ${groups.join(', ')}`);
@@ -22,7 +26,7 @@ module.exports = cds.service.impl(function () {
     } else if (intent === 'revoke') {
       return await revokeGroupsFromUser(email, groups);
     } else {
-      return { status: 'error', message: `Unrecognized intent: ${intent}` };
+      return { status: 'error', message: `❌ Unrecognized intent: ${intent}` };
     }
   });
 });
