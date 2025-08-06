@@ -3,19 +3,6 @@
 @password=
 
 
-### assignUsersToGroup
-# @name assignUsersToGroup_POST
-POST {{server}}/odata/v4/SCIMService/assignUsersToGroup
-Content-Type: application/json
-# Authorization: Basic {{username}}:{{password}}
-
-{
-  "groupId": "ExampleGroup",
-  "emails": [
-    "john.smith@example.com"
-  ]
-}
-
 
 ### assignGroupsToUser
 # @name assignGroupsToUser_POST

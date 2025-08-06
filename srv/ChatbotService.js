@@ -1,5 +1,5 @@
-const { handleAIExtraction } = require('./AICore'); // renamed for clarity
-const { assignGroupsToUser, revokeGroupsFromUser } = require('./BulkAssignment');
+const { handleAIExtraction } = require('./AICore'); 
+const { assignGroupsToUser, revokeGroupsFromUser } = require('./Functions');
 
 module.exports = cds.service.impl(function () {
   this.on('handleChatbotInput', async (req) => {

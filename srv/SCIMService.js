@@ -1,7 +1,5 @@
-const { revokeGroupsFromUser, getAllUsersFromSCIM, getUserUuidByEmail, getGroupId, assignGroupsToUser, UserCreation } = require('./BulkAssignment');
+const { revokeGroupsFromUser, getAllUsersFromSCIM, getUserUuidByEmail, getGroupId, assignGroupsToUser, UserCreation } = require('./Functions');
 const cds = require('@sap/cds');
-// const xsenv = require('@sap/xsenv');
-// xsenv.loadEnv();
 
 
 module.exports = cds.service.impl(async function () {
