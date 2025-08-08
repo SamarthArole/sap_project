@@ -5,7 +5,7 @@ const { type } = require('@sap/cds');
 
 
 async function getAllUsersFromSCIM(destinationName) {
-  const destination = await core.getDestination('ias_api');
+  const destination = await core.getDestination(destinationName);
 
   const response = await executeHttpRequest(destination, {
     method: 'GET',
@@ -106,8 +106,7 @@ async function getGroupId(groupName, destinationName) {
   }
 }
 
-async function assignGroupsToUser(email, groupNames) {
-  const destinationName = 'ias_api';
+async function assignGroupsToUser(email, groupNames, destinationName) {
 
   try {
     const userId = await getUserUuidByEmail(email, destinationName);
@@ -179,8 +178,7 @@ async function assignGroupsToUser(email, groupNames) {
 }
 
 
-async function revokeGroupsFromUser(email, groupNames) {
-  const destinationName = 'ias_api';
+async function revokeGroupsFromUser(email, groupNames, destinationName) {
 
   try {
     const userId = await getUserUuidByEmail(email, destinationName);

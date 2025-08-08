@@ -74,7 +74,7 @@ module.exports = cds.service.impl(async function () {
     try {
       console.log(`[assignGroupsToUser] Email: ${email}`);
       console.log(`[assignGroupsToUser] Groups: ${groupsNames.join(', ')}`);
-      const result = await assignGroupsToUser(email, groupsNames);
+      const result = await assignGroupsToUser(email, groupsNames, 'ias_api');
       return result;
     } catch (err) {
       console.error(`[assignGroupsToUser] ❌ Error:`, err.message);
@@ -93,7 +93,7 @@ module.exports = cds.service.impl(async function () {
     }
 
     try {
-      const result = await revokeGroupsFromUser(email, groupsNames);
+      const result = await revokeGroupsFromUser(email, groupsNames, 'ias_api');
       return result;
     } catch (err) {
       console.error(`[revokeGroupsFromUser] ❌ Handler Error: ${err.message}`);
